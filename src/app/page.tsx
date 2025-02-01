@@ -1,5 +1,11 @@
-"use client";
-import Image from "next/image";
-export default function Home() {
-  return <div>Hello World</div>;
+import BestSellers from "./_components/bestSellers";
+import Hero from "./_components/Hero";
+
+export default async function Home() {
+  return (
+    <main>
+      <Hero />
+      <BestSellers />
+    </main>
+  );
 }
