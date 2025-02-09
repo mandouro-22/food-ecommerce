@@ -14,10 +14,10 @@ export const Sizes = ({
   items: ProductWithRelations;
 }) => {
   return (
-    <div className="">
+    <div className="my-4">
       <RadioGroup defaultValue="comfortable">
         {size.map((item: any) => (
-          <div className="flex items-center space-x-2" key={item?.id}>
+          <div className="flex items-center space-x-2 my-1" key={item?.id}>
             <RadioGroupItem
               value={item?.id.toString()}
               id={item?.id.toString()}

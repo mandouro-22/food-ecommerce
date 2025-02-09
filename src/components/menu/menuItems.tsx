@@ -7,7 +7,7 @@ export default function MenuItems({ item }: { item: ProductWithRelations }) {
   return (
     <li>
       <div className="p-4 bg-white shadow-md rounded-lg">
-        <div className="py-4">
+        <div className="py-4 flex items-center justify-center">
           <Image src={item?.image} alt={item?.name} width={300} height={50} />
         </div>
         <div className="flex items-center justify-between my-2">

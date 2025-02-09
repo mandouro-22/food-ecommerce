@@ -38,13 +38,21 @@ export default async function AddToCard({
         </DialogHeader>
         <div className="space-y-10">
           <div>
-            <Label htmlFor="pick-size">Pick Your Size</Label>
+            <Label
+              htmlFor="pick-size"
+              className="flex items-center justify-center font-semibold">
+              Pick Your Size
+            </Label>
             <div className="">
               <Sizes size={item?.sizes} items={item} />
             </div>
           </div>
           <div>
-            <Label htmlFor="pick-extra">Pick Your Extra</Label>
+            <Label
+              htmlFor="pick-extra"
+              className="flex items-center justify-center font-semibold">
+              Pick Your Extra
+            </Label>
             <div className="">
               {/* Additional items or options here */}
               <Extras extra={item?.extras} items={item} />
