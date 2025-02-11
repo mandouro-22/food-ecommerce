@@ -4,7 +4,6 @@ import React from "react";
 
 export default async function MenuPage() {
   const categorites = await getProductsByCategory();
-  console.log(categorites);
   return (
     <main>
       {categorites.map((category) => (

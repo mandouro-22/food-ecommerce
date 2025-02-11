@@ -1,0 +1,9 @@
+import { CartItem } from "@/store/feature/cart/cartSlice";
+
+export const getCartQuantity = (cart: CartItem[]) => {
+  return cart.reduce((quantity, item) => item.quantity! + quantity, 0);
+};
+
+export const getItemQuantity = (id: string, cart: CartItem[]) => {
+  return cart.find((item) => item.id === id)?.quantity || 0;
+};
