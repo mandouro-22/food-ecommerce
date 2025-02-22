@@ -4,7 +4,7 @@ import { store } from "@/store/store";
 import React from "react";
 import { Provider } from "react-redux";
 
-export default function ReduxProvieder({
+export default function ReduxProvider({
   children,
 }: {
   children: React.ReactNode;

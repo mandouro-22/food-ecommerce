@@ -4,29 +4,36 @@ import Link from "../link";
 import { useState } from "react";
 import { Button, buttonVariants } from "../ui/button";
 import { Menu, XIcon } from "lucide-react";
+import { useParams, usePathname } from "next/navigation";
 
-export default function Navbar() {
+export default function Navbar({
+  translation,
+}: {
+  translation: { [key: string]: string };
+}) {
+  const { locale } = useParams();
   const [open, setOpen] = useState(false);
+  const pathName = usePathname();
   const links = [
     {
       id: crypto.randomUUID(),
-      title: "Menu",
+      title: translation.menu,
       href: Routes.MENU,
     },
     {
       id: crypto.randomUUID(),
-      title: "About",
+      title: translation.about,
       href: Routes.ABOUT,
     },
     {
       id: crypto.randomUUID(),
-      title: "Contact",
+      title: translation.contact,
       href: Routes.CONTACT,
     },
     {
       id: crypto.randomUUID(),
-      title: "Login",
-      href: `${Routes.AUTH}/${Pages.LOGIN}`,
+      title: translation.login,
+      href: `${locale}/${Routes.AUTH}/${Pages.LOGIN}`,
     },
   ];
   return (
@@ -51,12 +58,20 @@ export default function Navbar() {
         {links.map((link) => (
           <li key={link.id}>
             <Link
-              href={link.href}
-              className={
-                link?.href === `${Routes?.AUTH}/${Pages.LOGIN}`
-                  ? `${buttonVariants?.({ size: "lg" })} rounded-full`
-                  : "hover:text-primary duration-200 transition-colors font-semibold"
-              }>
+              href={`/${locale}/${link.href}`}
+              className={` hover:text-primary duration-200 transition-colors font-semibold  
+                ${
+                  link?.href === `${locale}/${Routes?.AUTH}/${Pages.LOGIN}`
+                    ? `${buttonVariants?.({ size: "lg" })} rounded-full`
+                    : "hover:text-primary duration-200 transition-colors font-semibold"
+                }
+                  ${
+                    pathName.startsWith(`/${locale}/${link.href}`)
+                      ? "text-primary"
+                      : "text-accent"
+                  }
+                
+                `}>
               {link.title}
             </Link>
           </li>

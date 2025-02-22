@@ -1,34 +1,44 @@
 import Image from "next/image";
-import pizza from "../../../public/assts/Image/pizza.png";
+import pizza from "../../../../public/assts/Image/pizza.png";
 import Link from "@/components/link";
-import { Routes } from "@/constants/enums";
+import { Languages, Routes } from "@/constants/enums";
 import { ArrowRightCircle } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
+import { getCurrentLocale } from "@/lib/getCurrentLocale";
+import { getDictionary } from "@/lib/translation";
 
-export default function Hero() {
+export default async function Hero() {
+  const locale = await getCurrentLocale();
+  const { home } = await getDictionary(locale);
+  const { hero } = home;
   return (
     <section>
       <div className="container grid grid-cols-1 md:grid-cols-2">
         <div className="py-12">
-          <h1 className="text-4xl font-semibold">Slice Into Happiness</h1>
-          <p className="text-accent my-4">
-            Our pizza is made with love and care, using only the finest
-            ingredients. Enjoy a slice filled with our signature toppings.
-          </p>
+          <h1 className="text-4xl font-semibold">{hero.title}</h1>
+          <p className="text-accent my-4">{hero.description}</p>
           <div className="flex items-center gap-4">
             <Link
               href={`/${Routes.MENU}`}
               className={`${buttonVariants({
                 size: "lg",
               })} space-x-2 !px-4 !rounded-full uppercase`}>
-              ORDER NOW
-              <ArrowRightCircle className={`!w-5 !h-5`} />
+              {hero.orderNow}
+              <ArrowRightCircle
+                className={`!w-5 !h-5 ${
+                  locale === Languages.ARABIC ? "rotate-180 " : ""
+                }`}
+              />
             </Link>
             <Link
               href={`/${Routes.ABOUT}`}
               className="flex gap-2 items-center text-black hover:text-primary duration-200 transition-colors font-semibold">
-              Learn More
-              <ArrowRightCircle className={`!w-5 !h-5`} />
+              {hero.learnMore}
+              <ArrowRightCircle
+                className={`!w-5 !h-5 ${
+                  locale === Languages.ARABIC ? "rotate-180 " : ""
+                }`}
+              />
             </Link>
           </div>
         </div>
