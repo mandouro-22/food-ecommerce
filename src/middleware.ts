@@ -36,7 +36,7 @@ export function middleware(request: NextRequest) {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
-  if (pathnameIsMissingLocale) {
+  if (pathnameIsMissingLocale && !pathname.startsWith("/api")) {
     const locale = getLocale(request);
     return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
   }
@@ -49,6 +49,7 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
+  // Matcher ignoring `/next/`, `/api/`, ..etc
   matcher: [
     "/((?!.api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)",
   ],
