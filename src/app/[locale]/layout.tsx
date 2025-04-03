@@ -6,6 +6,7 @@ import Footer from "./footer/footer";
 import ReduxProvider from "@/providers/reduxProvieder";
 import { Directions, Languages } from "@/constants/enums";
 import { Locale } from "@/i18n.config";
+import { Toaster } from "@/components/ui/toaster";
 
 const roboto = Roboto({
   weight: ["400", "500", "700"],
@@ -39,6 +40,7 @@ export default async function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
+          <Toaster />
         </ReduxProvider>
       </body>
     </html>

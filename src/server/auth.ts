@@ -3,6 +3,8 @@ import { type NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { db } from "@/lib/prisma";
+import { Login } from "./_action/auth";
+import { Locale } from "@/i18n.config";
 
 export const authOption: NextAuthOptions = {
   session: {
@@ -27,12 +29,20 @@ export const authOption: NextAuthOptions = {
           placeholder: "Enter your password",
         },
       },
-      authorize: (credential) => {
-        const user = credential;
-        return {
-          id: crypto.randomUUID(),
-          ...user,
-        };
+      authorize: async (credential, req) => {
+        const currentURl = req?.headers?.referer;
+        const locale = currentURl?.split("/")[3] as Locale;
+        const res = await Login(credential, locale);
+        if (res?.status === 200 && res?.userData) return res.userData;
+        else {
+          console.log(res.message);
+          throw new Error(
+            JSON.stringify({
+              validationError: res.error,
+              responseError: res.message,
+            })
+          );
+        }
       },
     }),
   ],

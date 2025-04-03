@@ -1,25 +1,53 @@
 import { Pages } from "@/constants/enums";
 import { IFormField, IFormFieldsVariables } from "@/types/app";
+import { Translation } from "@/types/Translation";
 
 interface Props extends IFormFieldsVariables {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  translate: any;
+  translate: Translation;
 }
 
 export function useFormFields({ slug, translate }: Props) {
   const loginFields = (): IFormField[] => [
     {
-      label: "Email",
+      label: translate.auth.login.email.label,
       name: "email",
       type: "email",
-      placeholder: "Enter your email",
+      placeholder: translate.auth.login.email.placeholder,
       autoFocus: true,
     },
     {
-      label: "Password",
+      label: translate.auth.login.password.label,
       name: "password",
       type: "password",
-      placeholder: "Enter your password",
+      placeholder: translate.auth.login.password.placeholder,
+    },
+  ];
+
+  const registerFields = (): IFormField[] => [
+    {
+      label: translate?.auth?.register?.name?.label,
+      name: "name",
+      placeholder: translate?.auth?.register?.name?.placeholder,
+      type: "text",
+      autoFocus: true,
+    },
+    {
+      label: translate?.auth?.register?.email?.label,
+      name: "email",
+      placeholder: translate?.auth?.register?.email?.placeholder,
+      type: "email",
+    },
+    {
+      label: translate?.auth?.register?.password?.label,
+      name: "password",
+      placeholder: translate?.auth?.register?.password?.placeholder,
+      type: "password",
+    },
+    {
+      label: translate?.auth?.register?.confirmPassword?.label,
+      name: "confirmPassword",
+      placeholder: translate?.auth?.register?.confirmPassword?.placeholder,
+      type: "password",
     },
   ];
 
@@ -28,7 +56,9 @@ export function useFormFields({ slug, translate }: Props) {
       case Pages.LOGIN: {
         return loginFields();
       }
-
+      case Pages.Register: {
+        return registerFields();
+      }
       default: {
         return [];
       }

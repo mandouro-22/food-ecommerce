@@ -21,7 +21,7 @@
       }
     },
     "contact": {
-      "Don'tHesitate": "لا تتردد",
+      "DontHesitate": "لا تتردد",
       "contactUs": "اتصل بنا"
     }
   },
@@ -180,7 +180,7 @@
         }
       }
     },
-    "menu-items": {
+    "menuItems": {
       "createNewMenuItem": "إنشاء عنصر قائمة جديد",
       "addItemSize": "إضافة حجم العنصر",
       "addExtraItem": "إضافة عنصر إضافي",

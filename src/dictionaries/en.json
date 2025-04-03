@@ -21,7 +21,7 @@
       }
     },
     "contact": {
-      "Don'tHesitate": "Don't hesitate",
+      "DontHesitate": "Don't hesitate",
       "contactUs": "Contact us"
     }
   },
@@ -180,7 +180,7 @@
         }
       }
     },
-    "menu-items": {
+    "menuItems": {
       "createNewMenuItem": "Create new menu item",
       "addItemSize": "Add item size",
       "addExtraItem": "Add extra item",
