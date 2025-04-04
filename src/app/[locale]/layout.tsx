@@ -7,6 +7,7 @@ import ReduxProvider from "@/providers/reduxProvieder";
 import { Directions, Languages } from "@/constants/enums";
 import { Locale } from "@/i18n.config";
 import { Toaster } from "@/components/ui/toaster";
+import NextAuthSessionProvieder from "@/providers/NextAuthSessionProvieder";
 
 const roboto = Roboto({
   weight: ["400", "500", "700"],
@@ -36,12 +37,14 @@ export default async function RootLayout({
       lang={locales}
       dir={locales === Languages.ARABIC ? Directions.RTL : Directions.LTR}>
       <body className={roboto.className}>
-        <ReduxProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <Toaster />
-        </ReduxProvider>
+        <NextAuthSessionProvieder>
+          <ReduxProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <Toaster />
+          </ReduxProvider>
+        </NextAuthSessionProvieder>
       </body>
     </html>
   );

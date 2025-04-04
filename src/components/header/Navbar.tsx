@@ -1,39 +1,43 @@
 "use client";
-import { Pages, Routes } from "@/constants/enums";
+import { Routes, UserRole } from "@/constants/enums";
 import Link from "../link";
 import { useState } from "react";
-import { Button, buttonVariants } from "../ui/button";
+import { Button } from "../ui/button";
 import { Menu, XIcon } from "lucide-react";
 import { useParams, usePathname } from "next/navigation";
+import AuthButton from "./AuthButton";
+import LanguageSwitcher from "./languageSwithcer";
+import { Translation } from "@/types/Translation";
+import { Session } from "next-auth";
+import { useClientSession } from "@/hooks/use-clientSession";
 
 export default function Navbar({
   translation,
+  initialSession,
 }: {
-  translation: { [key: string]: string };
+  initialSession: Session | null;
+  translation: Translation;
 }) {
+  const session = useClientSession(initialSession);
   const { locale } = useParams();
   const [open, setOpen] = useState(false);
   const pathName = usePathname();
+  const isAdmin = session?.data?.user?.role === UserRole.ADMIN;
   const links = [
     {
       id: crypto.randomUUID(),
-      title: translation.menu,
+      title: translation.navbar.menu,
       href: Routes.MENU,
     },
     {
       id: crypto.randomUUID(),
-      title: translation.about,
+      title: translation.navbar.about,
       href: Routes.ABOUT,
     },
     {
       id: crypto.randomUUID(),
-      title: translation.contact,
+      title: translation.navbar.contact,
       href: Routes.CONTACT,
-    },
-    {
-      id: crypto.randomUUID(),
-      title: translation.login,
-      href: `${locale}/${Routes.AUTH}/${Pages.LOGIN}`,
     },
   ];
   return (
@@ -59,23 +63,48 @@ export default function Navbar({
           <li key={link.id}>
             <Link
               href={`/${locale}/${link.href}`}
-              className={` hover:text-primary duration-200 transition-colors font-semibold  
-                ${
-                  link?.href === `${locale}/${Routes?.AUTH}/${Pages.LOGIN}`
-                    ? `${buttonVariants?.({ size: "lg" })} rounded-full`
-                    : "hover:text-primary duration-200 transition-colors font-semibold"
-                }
-                  ${
-                    pathName.startsWith(`/${locale}/${link.href}`)
-                      ? "text-primary"
-                      : "text-accent"
-                  }
-                
-                `}>
+              onClick={() => setOpen(false)}
+              className={`hover:text-primary duration-200 transition-colors font-semibold
+                        ${
+                          pathName.startsWith(`/${locale}/${link.href}`)
+                            ? "text-primary"
+                            : "text-accent"
+                        }`}>
               {link.title}
             </Link>
           </li>
         ))}
+        {session.data?.user && (
+          <li>
+            <Link
+              href={
+                isAdmin
+                  ? `/${locale}/${Routes.ADMIN}`
+                  : `/${locale}/${Routes.PROFILE}`
+              }
+              // onClick={() => setOpenMenu(false)}
+              className={`${
+                pathName.startsWith(
+                  isAdmin
+                    ? `/${locale}/${Routes.ADMIN}`
+                    : `/${locale}/${Routes.PROFILE}`
+                )
+                  ? "text-primary"
+                  : "text-accent"
+              } hover:text-primary duration-200 transition-colors font-semibold`}>
+              {isAdmin ? translation.navbar.admin : translation.navbar.profile}
+            </Link>
+          </li>
+        )}
+        <li className="lg:hidden flex flex-col gap-4">
+          <div onClick={() => setOpen(false)}>
+            <AuthButton
+              translations={translation}
+              initialSession={initialSession}
+            />
+          </div>
+          <LanguageSwitcher />
+        </li>
       </ul>
     </nav>
   );
