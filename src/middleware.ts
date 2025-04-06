@@ -62,7 +62,6 @@ export default withAuth(
     const isProduectRoute = prodectedRoutes.some((route) =>
       pathname.startsWith(`/${currentLocale}/${route}`)
     );
-    const role = isAuth?.role;
     if (!isAuth && isProduectRoute) {
       return NextResponse.redirect(
         new URL(`/${currentLocale}/${Routes.AUTH}/${Pages.LOGIN}`, request.url)
@@ -70,11 +69,13 @@ export default withAuth(
     }
     // if user logged in and try to access auth routes
     if (isAuth && isAuthPage) {
+      const role = isAuth.role;
       if (role === UserRole.ADMIN) {
         return NextResponse.redirect(
           new URL(`/${currentLocale}/${Routes.ADMIN}`, request.url)
         );
       }
+
       return NextResponse.redirect(
         new URL(`/${currentLocale}/${Routes.PROFILE}`, request.url)
       );
@@ -82,6 +83,7 @@ export default withAuth(
 
     // if user logged in and he isn't admin and try to access admin routes
     if (isAuth && pathname.startsWith(`/${currentLocale}/${Routes.ADMIN}`)) {
+      const role = isAuth.role;
       if (role !== UserRole.ADMIN) {
         return NextResponse.redirect(
           new URL(`/${currentLocale}/${Routes.PROFILE}`, request.url)

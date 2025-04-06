@@ -1,5 +1,5 @@
 import EditUserForm from "@/components/edit-user-form";
-import { Routes } from "@/constants/enums";
+import { Pages, Routes } from "@/constants/enums";
 import { Locale } from "@/i18n.config";
 import { getDictionary } from "@/lib/translation";
 import { authOption } from "@/server/auth";
@@ -11,20 +11,23 @@ import React from "react";
 export default async function Profile({
   params,
 }: {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }) {
+  const { locale } = await params;
   const session = await getServerSession(authOption);
-  const translation = await getDictionary(params.locale);
-
+  const translation = await getDictionary(locale);
+  if (!session) {
+    redirect(`/${locale}/${Pages.LOGIN}`);
+  }
   if (session && session?.user?.role === UserRole?.ADMIN) {
-    redirect(`/${params.locale}/${Routes.ADMIN}`);
+    redirect(`/${locale}/${Routes.ADMIN}`);
   }
 
   return (
     <main>
       <section className="section-gap">
         <div className="container">
-          <h1 className="text-center text-primary font-bold text-4xl italic">
+          <h1 className="text-center text-primary font-bold text-4xl italic my-5 md:my-3">
             {translation.profile.title}
           </h1>
           {/* form edit */}

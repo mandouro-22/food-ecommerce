@@ -14,7 +14,7 @@ import { ValidationError } from "@/validation/auth";
 import { ProfileFields } from "./_actions/profile";
 import UploadImage from "./uploadImage";
 import { toast } from "@/hooks/use-toast";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import { UserRole } from "@prisma/client";
 import Checkbox from "../formFields/CheckBoxField";
 
@@ -35,18 +35,22 @@ export default function EditUserForm({
   user,
 }: {
   translation: Translation;
-  user?: Session["user"];
+  user: Session["user"];
 }) {
-  const [state, action, pending] = useActionState(ProfileFields, initialState);
+  const [isAdmin, setIsAdmin] = useState(user.role === UserRole.ADMIN);
   const [selectedFile, setSelectedFile] = useState(user?.image || "");
-  const [isAdmin, setIsAdmin] = useState(user?.role === UserRole.ADMIN);
+  const [state, action, pending] = useActionState(
+    ProfileFields.bind(null, isAdmin),
+    initialState
+  );
   const { getFormFields } = useFormFields({
     slug: Routes.PROFILE,
     translate: translation,
   });
-  const session = useSession();
+  // const session = useSession();
 
   const formData = new FormData();
+
   if (user) {
     Object.entries(user).forEach(([Key, value]) => {
       if (value !== null && value !== undefined && Key !== "image") {
@@ -66,18 +70,20 @@ export default function EditUserForm({
 
   // update image
   useEffect(() => {
-    setSelectedFile(user?.image as string);
-  }, [user?.image]);
+    setSelectedFile(user.image as string);
+  }, [user.image]);
 
   return (
-    <form action={action} className="flex flex-col md:flex-row gap-10">
+    <form
+      action={action}
+      className="flex flex-col md:flex-row gap-10 max-sm:my-3">
       <div className="group relative w-[200px] h-[200px] overflow-hidden rounded-full mx-auto">
         <Image
           className="rounded-full object-cover"
           src={selectedFile}
           width={200}
           height={200}
-          alt={user?.name || "User avatar"}
+          alt={user.name || "User avatar"}
         />
         <UploadImage
           selectedImage={selectedFile}
@@ -99,7 +105,7 @@ export default function EditUserForm({
             </div>
           );
         })}
-        {session.data?.user.role === UserRole.ADMIN && (
+        {user.role === UserRole.ADMIN && (
           <div className="flex items-center gap-2 my-4">
             <Checkbox
               name="admin"

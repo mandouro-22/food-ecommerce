@@ -6,8 +6,13 @@ import { updateProfileSchema } from "@/validation/profile";
 import { getImageURL } from "./getImageURL";
 import { revalidatePath } from "next/cache";
 import { Pages, Routes } from "@/constants/enums";
+import { UserRole } from "@prisma/client";
 
-export async function ProfileFields(_prevState: unknown, formdata: FormData) {
+export async function ProfileFields(
+  isAdmin: boolean,
+  _prevState: unknown,
+  formdata: FormData
+) {
   const locale = await getCurrentLocale();
   const translations = await getDictionary(locale);
 
@@ -50,16 +55,15 @@ export async function ProfileFields(_prevState: unknown, formdata: FormData) {
       data: {
         ...data,
         image: imageURL ?? user.image,
+        role: isAdmin ? UserRole.ADMIN : UserRole.USER,
       },
     });
-
     revalidatePath(`/${locale}/${Routes.PROFILE}`);
     revalidatePath(`/${locale}/${Routes.ADMIN}`);
     revalidatePath(`/${locale}/${Routes.ADMIN}/${Pages.USERS}`);
     revalidatePath(
       `/${locale}/${Routes.ADMIN}/${Pages.USERS}/${user.id}/${Pages.EDIT}`
     );
-
     return {
       status: 200,
       message: translations.messages?.updateProfileSucess,
