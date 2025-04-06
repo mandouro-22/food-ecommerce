@@ -1,4 +1,4 @@
-import { Pages } from "@/constants/enums";
+import { Pages, Routes } from "@/constants/enums";
 import { IFormField, IFormFieldsVariables } from "@/types/app";
 import { Translation } from "@/types/Translation";
 
@@ -51,6 +51,52 @@ export function useFormFields({ slug, translate }: Props) {
     },
   ];
 
+  const profileFields = (): IFormField[] => [
+    {
+      label: translate.profile.form.name.label,
+      name: "name",
+      type: "text",
+      placeholder: translate.profile.form.name.placeholder,
+      autoFocus: true,
+    },
+    {
+      label: translate.profile.form.email.label,
+      name: "email",
+      type: "email",
+      placeholder: translate.profile.form.email.placeholder,
+    },
+    {
+      label: translate.profile.form.phone.label,
+      name: "phone",
+      type: "text",
+      placeholder: translate.profile.form.phone.placeholder,
+    },
+    {
+      label: translate.profile.form.address.label,
+      name: "streetAddress",
+      type: "text",
+      placeholder: translate.profile.form.address.placeholder,
+    },
+    {
+      label: translate.profile.form.postalCode.label,
+      name: "postalCode",
+      type: "text",
+      placeholder: translate.profile.form.postalCode.placeholder,
+    },
+    {
+      label: translate.profile.form.city.label,
+      name: "city",
+      type: "text",
+      placeholder: translate.profile.form.city.placeholder,
+    },
+    {
+      label: translate.profile.form.country.label,
+      name: "country",
+      type: "text",
+      placeholder: translate.profile.form.country.placeholder,
+    },
+  ];
+
   const getFormFields = (): IFormField[] => {
     switch (slug) {
       case Pages.LOGIN: {
@@ -58,6 +104,9 @@ export function useFormFields({ slug, translate }: Props) {
       }
       case Pages.Register: {
         return registerFields();
+      }
+      case Routes.PROFILE: {
+        return profileFields();
       }
       default: {
         return [];

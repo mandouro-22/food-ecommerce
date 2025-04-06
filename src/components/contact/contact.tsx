@@ -11,7 +11,7 @@ export default async function Contact() {
     <section className="section-gap" id={Routes.CONTACT}>
       <div className="container text-center">
         <MainHeading
-          subTitle={contact["Don'tHesitate"]}
+          subTitle={contact.DontHesitate}
           title={contact.contactUs}
         />
         <div className="mt-8">

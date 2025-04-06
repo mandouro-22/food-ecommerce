@@ -81,27 +81,39 @@ export type Translation = {
       phone: {
         label: string;
         placeholder: string;
-        validation: { required: string };
+        validation: {
+          required: string;
+          invalid: string;
+        };
       };
       address: {
         label: string;
         placeholder: string;
-        validation: { required: string };
+        validation: {
+          required: string;
+        };
       };
       postalCode: {
         label: string;
         placeholder: string;
-        validation: { required: string };
+        validation: {
+          required: string;
+          invalid: string;
+        };
       };
       city: {
         label: string;
         placeholder: string;
-        validation: { required: string };
+        validation: {
+          required: string;
+        };
       };
       country: {
         label: string;
         placeholder: string;
-        validation: { required: string };
+        validation: {
+          required: string;
+        };
       };
     };
   };

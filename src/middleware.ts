@@ -5,7 +5,8 @@ import { match as matchLocale } from "@formatjs/intl-localematcher";
 import { i18n, LanguageType, Locale } from "./i18n.config";
 import { withAuth } from "next-auth/middleware";
 import { getToken } from "next-auth/jwt";
-import { Pages, Routes, UserRole } from "./constants/enums";
+import { Pages, Routes } from "./constants/enums";
+import { UserRole } from "@prisma/client";
 
 function getLocale(request: NextRequest): string {
   const negotiatorHeaders: Record<string, string> = {};
