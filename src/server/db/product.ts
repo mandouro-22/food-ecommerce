@@ -43,3 +43,33 @@ export const getBestSellers = cache(
   ["best_sellers"],
   { revalidate: 3600 }
 );
+
+export const getProducts = cache(
+  () => {
+    const product = db.product.findMany({
+      orderBy: {
+        order: "asc",
+      },
+    });
+    return product;
+  },
+  ["products"],
+  { revalidate: 3600 }
+);
+
+export const getProduct = cache(
+  (id: string) => {
+    const product = db.product.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        sizes: true,
+        extras: true,
+      },
+    });
+    return product;
+  },
+  ["product"],
+  { revalidate: 3600 }
+);

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
@@ -21,16 +20,16 @@ export const Sizes = ({
   return (
     <div className="my-4">
       <RadioGroup defaultValue="comfortable">
-        {size.map((item: any) => (
+        {size.map((item: Size) => (
           <div className="flex items-center space-x-2 my-1" key={item?.id}>
             <RadioGroupItem
-              value={selectedSize.name}
+              value={selectedSize?.name}
               id={item?.id.toString()}
               checked={selectedSize?.id === item?.id}
               onClick={() => setSelectedSize(item)}
             />
             <Label htmlFor={item?.id.toString()}>
-              {item.name} {formatCurrency(item?.price + items?.basePrice)}
+              {item?.name} {formatCurrency(item?.price + items?.basePrice)}
             </Label>
           </div>
         ))}
@@ -59,7 +58,7 @@ export const Extras = ({
 
   return (
     <div>
-      {extra?.map((item: any) => (
+      {extra?.map((item: Extra) => (
         <>
           <div className="flex items-center space-x-2 my-4">
             <Checkbox
@@ -69,7 +68,8 @@ export const Extras = ({
             />
             <label
               htmlFor={item?.id}
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
               {item?.name} {formatCurrency(item?.price + items?.basePrice)}
             </label>
           </div>

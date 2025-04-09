@@ -30,7 +30,7 @@ export async function ProfileFields(
   const data = result.data;
   const imageFile = data.image as File;
   const imageURL = Boolean(imageFile.size)
-    ? await getImageURL(imageFile)
+    ? await getImageURL(imageFile, "profile_images")
     : undefined;
 
   try {

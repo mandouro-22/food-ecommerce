@@ -235,6 +235,8 @@
     "title": "Shopping Cart",
     "noItemsInCart": "There are no items in your cart. Add some"
   },
+  "There are no users yet.": "There are no users yet.",
+  "It looks like you are the only user on the system right now.": "It looks like you are the only user on the system right now.",
   "copyRight": "© 2024 All rights reserved",
   "noProductsFound": "No products found",
   "noCategoriesFound": "No categories found"

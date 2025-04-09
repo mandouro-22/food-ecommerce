@@ -95,6 +95,7 @@ export function ItemsOptions({
                     placeholder="0"
                     onChange={(e) => handleOnChange(e, index, "price")}
                     min={0}
+                    defaultValue={items.price || 0}
                     name="price"
                     className="bg-white focus:!ring-0"
                   />

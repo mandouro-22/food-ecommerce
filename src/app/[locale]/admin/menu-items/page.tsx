@@ -8,6 +8,8 @@ import { UserRole } from "@prisma/client";
 import { ArrowRightCircle } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import MenuProducts from "./_components/MenuProducts";
+import { getProducts } from "@/server/db/product";
 
 export default async function MenuPage({
   params,
@@ -17,6 +19,7 @@ export default async function MenuPage({
   const { locale } = await params;
   const translations = await getDictionary(locale);
   const session = await getServerSession(authOption);
+  const products = await getProducts();
 
   if (!session) {
     redirect(`/${locale}/${Routes.AUTH}/${Pages.LOGIN}`);
@@ -34,7 +37,7 @@ export default async function MenuPage({
             href={`/${locale}/${Routes.ADMIN}/${Pages.MENU_ITEMS}/${Pages.NEW}`}
             className={`${buttonVariants({
               variant: "outline",
-            })}!mx-auto !flex !w-80 !h-10 mb-8 mt-4`}
+            })} !mx-auto !flex !w-80 !h-10 mb-8 mt-4`}
           >
             {translations.admin.menuItems.createNewMenuItem}
             <ArrowRightCircle
@@ -43,6 +46,8 @@ export default async function MenuPage({
               }`}
             />
           </Link>
+
+          <MenuProducts products={products} />
         </div>
       </section>
     </main>

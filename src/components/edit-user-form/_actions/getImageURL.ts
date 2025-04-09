@@ -1,7 +1,7 @@
-export async function getImageURL(imageFile: File) {
+export async function getImageURL(imageFile: File, pathName: string) {
   const formData = new FormData();
   formData.append("file", imageFile);
-  formData.append("pathName", "profile_images");
+  formData.append("pathName", pathName);
 
   try {
     const res = await fetch(`http://localhost:3000/api/upload`, {

@@ -235,7 +235,8 @@
     "title": "عربة التسوق",
     "noItemsInCart": "لا توجد عناصر في سلة التسوق الخاصة بك. أضف بعضًا"
   },
-
+  "There are no users yet.": "لا يوجد مستخدمون حتى الآن",
+  "It looks like you are the only user on the system right now.": "يبدو أنك المستخدم الوحيد في النظام الآن.",
   "copyRight": "© 2024 جميع الحقوق محفوظة",
   "noProductsFound": "لم يتم العثور على منتجات",
   "noCategoriesFound": "لم يتم العثور على الفئات"

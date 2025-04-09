@@ -34,6 +34,7 @@ export default function SelectCategory({
       </Label>
       <Select
         value={categoryId}
+        name="categoryId"
         onValueChange={(value) => {
           setCategoryId(value);
         }}
