@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍕 Pizza Web App
 
-## Getting Started
+A modern full-stack pizza ordering web application built with **Next.js 15** and **TypeScript**, featuring multilingual support, a secure authentication system, and a powerful admin dashboard.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🌍 Multilingual
+- Supports **Arabic** and **English** using `i18next`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 👨‍💼 Admin Dashboard
+- Create, update, delete **categories**.
+- Add **items**, define **sizes**, and **extra options** (e.g. toppings).
+- Manage everything from a clean and modern dashboard UI.
+- Built with **shadcn/ui** and **lucide-icons**.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🧑‍🍳 User Features
+- View and browse categories & items.
+- Customize orders, add to **cart**.
+- Authentication (login/register) using **NextAuth** + **JWT**.
 
-## Learn More
+### 🛠️ Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
+- **Next.js 15** (App Router)
+- **TypeScript**
+- **Tailwind CSS** for styling
+- **Prisma + Prisma Client** for DB interaction
+- **PostgreSQL** (or any supported DB)
+- **Cloudinary** for image uploads
+- **NextAuth** for authentication (JWT-based)
+- **bcrypt** for password hashing
+- **Redux Toolkit** for state management
+- **shadcn/ui** for UI components
+- **lucide-react** for icons
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
